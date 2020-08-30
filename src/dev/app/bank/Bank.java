@@ -6,15 +6,17 @@ import java.util.Set;
 /**
  * Bank class that stores and edits all information
  * related to it.
+ *
  * @author Nikita Petrenko
  */
 public class Bank {
 
     /**
      * Variable that creates HashMap collection that represents
-     * the account number as key and balance as value.
+     * the number in the queue of account number as key and
+     * additional info about it as value.
      */
-    private HashMap<Integer, Integer> accounts
+    private HashMap<Integer, BankAccount> accounts
             = new HashMap<>();
     /**
      * Constant represent bank's interest.
@@ -26,13 +28,27 @@ public class Bank {
     private int nextAccountNumber;
 
     /**
+     * Method that modify type of account domestic<->foreign.
+     *
+     * @param accountNumber number of account number
+     * @param isForeign     domestic - false|foreign - true account
+     */
+    public void setForeign(int accountNumber, boolean isForeign) {
+        BankAccount bankAccount = accounts.get(accountNumber);
+        bankAccount.setForeign(isForeign);
+    }
+
+    /**
      * Method assign account number to the map with default balance 0.
      *
+     * @param isForeign domestic - false|foreign - true account
      * @return new number of account
      */
-    public int newAccount() {
+    public int newAccount(boolean isForeign) {
         int accountNumber = nextAccountNumber++;
-        accounts.put(accountNumber, 0);
+        BankAccount bankAccount = new BankAccount(accountNumber);
+        bankAccount.setForeign(isForeign);
+        accounts.put(accountNumber, bankAccount);
         return accountNumber;
     }
 
@@ -43,7 +59,8 @@ public class Bank {
      * @return chosen account
      */
     public int getBalance(int accountNumber) {
-        return accounts.get(accountNumber);
+        BankAccount bankAccount = accounts.get(accountNumber);
+        return bankAccount.getBalance();
     }
 
     /**
@@ -53,8 +70,9 @@ public class Bank {
      * @param amount        amount of deposit
      */
     public void deposit(int accountNumber, int amount) {
-        int balance = accounts.get(accountNumber);
-        accounts.put(accountNumber, balance + amount);
+        BankAccount bankAccount = accounts.get(accountNumber);
+        int balance = bankAccount.getBalance();
+        bankAccount.setBalance(balance + amount);
     }
 
     /**
@@ -67,28 +85,36 @@ public class Bank {
      * orthewise - false
      */
     public boolean authorizeLoan(int accountNumber, int amountLoan) {
-        int balance = accounts.get(accountNumber);
+        BankAccount bankAccount = accounts.get(accountNumber);
+        int balance = bankAccount.getBalance();
         return balance >= amountLoan / 2;
     }
 
-    /**Method increases each existed balances based on bank's percent.*/
+    /**
+     * Method increases each existed balances based on bank's percent.
+     */
     public void addInterest() {
-        Set<Integer> accts = accounts.keySet();
-        for (int i : accts) {
-            int balance = accounts.get(i);
+        for (BankAccount bankAccount : accounts.values()) {
+            int balance = bankAccount.getBalance();
             int newBalance = (int) (balance * (1 + BANK_RATE));
-            accounts.put(i, newBalance);
+            bankAccount.setBalance(newBalance);
         }
     }
 
-    /**{@inheritDoc}*/
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         Set<Integer> accts = accounts.keySet();
         StringBuilder result = new StringBuilder("The bank has " + accts.size()
                 + " accounts.");
-        for (int i : accts)
-            result.append("\n\tBank account ").append(i).append(": balance=").append(accounts.get(i));
+        for (BankAccount bankAccount : accounts.values())
+            result.append("\n\tBank account ")
+                    .append(bankAccount.getAccountNumber())
+                    .append(": balance = ").append(bankAccount.getBalance())
+                    .append(bankAccount.isForeign() ? ", and it's foreign account"
+                            : ", and it's domestic account");
         return result.toString();
     }
 

@@ -38,7 +38,7 @@ public class BankClient {
         while (!done) {
             System.out.println("Enter command:\n\t0 - quit\n\t1 - new"
                     + "\n\t2 - select\n\t3 - deposit\n\t4 - loan"
-                    + "\n\t5 - show\n\t6 - interest");
+                    + "\n\t5 - show\n\t6 - interest\n\t7 - setForeign");
             int cmd = scanner.nextInt();
             processCommand(cmd);
         }
@@ -59,6 +59,7 @@ public class BankClient {
             case 4 -> authorizeLoan();
             case 5 -> showAll();
             case 6 -> addInterest();
+            case 7 -> setForeign();
             default -> System.out.println("Wrong input! Try again. Please type only the integer number");
         }
     }
@@ -77,9 +78,29 @@ public class BankClient {
      * sets it as current and prints it.
      */
     private void newAccount() {
-        current = bank.newAccount();
+        boolean isForeign = requestForAnswer();
+        current = bank.newAccount(isForeign);
         System.out.println("Your new account number is "
                 + current);
+    }
+
+    /**
+     * Additional method that modify type of account.
+     */
+    private void setForeign() {
+        bank.setForeign(current, requestForAnswer());
+    }
+
+    /**
+     * Additional method that take the number from user input and
+     * returns boolean.
+     *
+     * @return true if 0 - foreign, otherwise false - domestic
+     */
+    private boolean requestForAnswer() {
+        System.out.println("Type 0 for foreign account, 1 - domestic account");
+        int answerNumber = scanner.nextInt();
+        return (answerNumber == 0);
     }
 
     /**
