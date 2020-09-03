@@ -18,17 +18,25 @@ public class BankClient {
     /**
      * Variable that creates instance of Scanner.
      */
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
 
     /**
      * Variable responsible for program status.
      */
-    private boolean done = false;
+    private boolean done;
 
     /**
      * Variable that holds link to the bank object.
      */
-    private Bank bank = new Bank();
+    private Bank bank;
+
+    /**
+     * EVC.
+     */
+    public BankClient(Scanner scanner, Bank bank) {
+        this.scanner = scanner;
+        this.bank = bank;
+    }
 
     /**
      * Print the menu into the console and wait for user's input.

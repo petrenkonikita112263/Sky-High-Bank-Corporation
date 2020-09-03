@@ -7,6 +7,10 @@ package dev.app.bank;
 public class BankAccount {
 
     /**
+     * Constant represent bank's interest.
+     */
+    private final double BANK_RATE = 0.01;
+    /**
      * Variable that hold owner account number.
      */
     private int accountNumber;
@@ -26,6 +30,26 @@ public class BankAccount {
      */
     public BankAccount(int accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public void deposit(int amount) {
+        balance += amount;
+    }
+
+    public boolean hasEnoughMoney(int amountLoan) {
+        return balance >= amountLoan / 2;
+    }
+
+    public void addInterest() {
+        balance += (int) (balance * (1 + BANK_RATE));
+    }
+
+    @Override
+    public String toString() {
+        return "Bank account "
+                + accountNumber + ": balance = " + balance
+                + (isForeign ? ", and it's foreign account"
+                : ", and it's domestic account");
     }
 
     public int getAccountNumber() {
@@ -51,4 +75,5 @@ public class BankAccount {
     public void setForeign(boolean foreign) {
         isForeign = foreign;
     }
+
 }

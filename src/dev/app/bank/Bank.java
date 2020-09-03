@@ -16,16 +16,17 @@ public class Bank {
      * the number in the queue of account number as key and
      * additional info about it as value.
      */
-    private HashMap<Integer, BankAccount> accounts
-            = new HashMap<>();
-    /**
-     * Constant represent bank's interest.
-     */
-    private final double BANK_RATE = 0.01;
+    private HashMap<Integer, BankAccount> accounts;
     /**
      * Variable that hold next account number.
      */
     private int nextAccountNumber;
+
+    /**EVC.*/
+    public Bank(HashMap<Integer, BankAccount> accounts, int nextAccountNumber) {
+        this.accounts = accounts;
+        this.nextAccountNumber = nextAccountNumber;
+    }
 
     /**
      * Method that modify type of account domestic<->foreign.
@@ -71,8 +72,7 @@ public class Bank {
      */
     public void deposit(int accountNumber, int amount) {
         BankAccount bankAccount = accounts.get(accountNumber);
-        int balance = bankAccount.getBalance();
-        bankAccount.setBalance(balance + amount);
+        bankAccount.deposit(amount);
     }
 
     /**
@@ -86,8 +86,7 @@ public class Bank {
      */
     public boolean authorizeLoan(int accountNumber, int amountLoan) {
         BankAccount bankAccount = accounts.get(accountNumber);
-        int balance = bankAccount.getBalance();
-        return balance >= amountLoan / 2;
+        return bankAccount.hasEnoughMoney(amountLoan);
     }
 
     /**
@@ -95,9 +94,7 @@ public class Bank {
      */
     public void addInterest() {
         for (BankAccount bankAccount : accounts.values()) {
-            int balance = bankAccount.getBalance();
-            int newBalance = (int) (balance * (1 + BANK_RATE));
-            bankAccount.setBalance(newBalance);
+            bankAccount.addInterest();
         }
     }
 
@@ -110,12 +107,8 @@ public class Bank {
         StringBuilder result = new StringBuilder("The bank has " + accts.size()
                 + " accounts.");
         for (BankAccount bankAccount : accounts.values())
-            result.append("\n\tBank account ")
-                    .append(bankAccount.getAccountNumber())
-                    .append(": balance = ").append(bankAccount.getBalance())
-                    .append(bankAccount.isForeign() ? ", and it's foreign account"
-                            : ", and it's domestic account");
-        return result.toString();
+            result.append("\n\t ").append(bankAccount.toString());
+        return String.valueOf(result);
     }
 
 }
