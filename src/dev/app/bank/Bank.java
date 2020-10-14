@@ -12,6 +12,11 @@ import java.util.Set;
 public class Bank {
 
     /**
+     * Int value represents which type is account - saving or checking.
+     */
+    private int type;
+
+    /**
      * Variable that creates HashMap collection that represents
      * the number in the queue of account number as key and
      * additional info about it as value.
@@ -22,7 +27,9 @@ public class Bank {
      */
     private int nextAccountNumber;
 
-    /**EVC.*/
+    /**
+     * EVC.
+     */
     public Bank(HashMap<Integer, BankAccount> accounts, int nextAccountNumber) {
         this.accounts = accounts;
         this.nextAccountNumber = nextAccountNumber;
@@ -42,12 +49,15 @@ public class Bank {
     /**
      * Method assign account number to the map with default balance 0.
      *
+     * @param type      1 - saving account, otherwise checking
      * @param isForeign domestic - false|foreign - true account
      * @return new number of account
      */
-    public int newAccount(boolean isForeign) {
+    public int newAccount(int type, boolean isForeign) {
         int accountNumber = nextAccountNumber++;
-        BankAccount bankAccount = new BankAccount(accountNumber);
+        BankAccount bankAccount = type == 1
+                ? new SavingAccount(accountNumber)
+                : new CheckingAccount(accountNumber);
         bankAccount.setForeign(isForeign);
         accounts.put(accountNumber, bankAccount);
         return accountNumber;

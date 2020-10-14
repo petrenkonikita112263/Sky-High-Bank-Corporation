@@ -86,8 +86,11 @@ public class BankClient {
      * sets it as current and prints it.
      */
     private void newAccount() {
+        System.out.println("Enter account type(1=savings,"
+                + " 2=checking): ");
+        int type = scanner.nextInt();
         boolean isForeign = requestForAnswer();
-        current = bank.newAccount(isForeign);
+        current = bank.newAccount(type, isForeign);
         System.out.println("Your new account number is "
                 + current);
     }

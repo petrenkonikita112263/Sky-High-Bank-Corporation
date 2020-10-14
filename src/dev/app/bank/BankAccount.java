@@ -1,79 +1,88 @@
 package dev.app.bank;
 
 /**
- * Class that responsible for info about owner.
- * His account numbers, balance and type of account - foreign or domestic.
+ * Interface class, which object can be transformed into SavingAccount
+ * or CheckingAccount classes, stores major functionality.
+ *
+ * @author Nikita Petrenko
  */
-public class BankAccount {
+public interface BankAccount extends Comparable<BankAccount> {
 
     /**
-     * Constant represent bank's interest.
-     */
-    private final double BANK_RATE = 0.01;
-    /**
-     * Variable that hold owner account number.
-     */
-    private int accountNumber;
-    /**
-     * Balance of owner's account.
-     */
-    private int balance;
-    /**
-     * Boolean value - true if foreign, otherwise it's domestic account.
-     */
-    private boolean isForeign;
-
-    /**
-     * EVC.
+     * Selects existed account number.
      *
-     * @param accountNumber owner account number
+     * @return typed account number
      */
-    public BankAccount(int accountNumber) {
-        this.accountNumber = accountNumber;
+    int getAccountNumber();
+
+    /**
+     * Selects balance of existed account.
+     *
+     * @return balance in int type value
+     */
+    int getBalance();
+
+    /**
+     * One of convenience methods. Creates a savings account having a specified
+     * initial balance.
+     *
+     * @param acctnum owner account number
+     * @param cash    amount of money to deposit
+     * @return created bank account object
+     */
+    static BankAccount createSavingsWithDeposit(int acctnum, int cash) {
+        BankAccount bankAccount = new SavingAccount(acctnum);
+        bankAccount.deposit(cash);
+        return bankAccount;
     }
 
-    public void deposit(int amount) {
-        balance += amount;
+    /**
+     * Last convenience methods.
+     *
+     * @return true if the account’s balance is zero, and false otherwise
+     */
+    default boolean isEmpty() {
+        return getBalance() == 0;
     }
 
-    public boolean hasEnoughMoney(int amountLoan) {
-        return balance >= amountLoan / 2;
-    }
+    /**
+     * Checks type of account (inside or outside country).
+     *
+     * @return true - foreign, otherwise - domestic
+     */
+    boolean isForeign();
 
-    public void addInterest() {
-        balance += (int) (balance * (1 + BANK_RATE));
-    }
+    /**
+     * Sets foreign or domestic type for account.
+     *
+     * @param foreign true - foreign, otherwise - domestic
+     */
+    void setForeign(boolean foreign);
 
+    /**
+     * Increase account's balance.
+     */
+    void addInterest();
+
+    /**
+     * Performs deposit operation for chosen account.
+     *
+     * @param amount money values in int type
+     */
+    void deposit(int amount);
+
+    /**
+     * Checks is there enough money to perform loan.
+     *
+     * @param amountLoan amount of money to loan
+     * @return true - operation can be run, otherwise - it could be
+     */
+    boolean hasEnoughMoney(int amountLoan);
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String toString() {
-        return "Bank account "
-                + accountNumber + ": balance = " + balance
-                + (isForeign ? ", and it's foreign account"
-                : ", and it's domestic account");
-    }
-
-    public int getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
-
-    public boolean isForeign() {
-        return isForeign;
-    }
-
-    public void setForeign(boolean foreign) {
-        isForeign = foreign;
-    }
+    int compareTo(BankAccount o);
 
 }
