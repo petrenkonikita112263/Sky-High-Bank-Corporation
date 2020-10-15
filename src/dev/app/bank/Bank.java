@@ -55,9 +55,11 @@ public class Bank {
      */
     public int newAccount(int type, boolean isForeign) {
         int accountNumber = nextAccountNumber++;
-        BankAccount bankAccount = type == 1
-                ? new SavingAccount(accountNumber)
-                : new CheckingAccount(accountNumber);
+        BankAccount bankAccount = switch (type) {
+            case 1 -> new SavingAccount(accountNumber);
+            case 2 -> new CheckingAccount(accountNumber);
+            default -> new InterestChecking(accountNumber);
+        };
         bankAccount.setForeign(isForeign);
         accounts.put(accountNumber, bankAccount);
         return accountNumber;
