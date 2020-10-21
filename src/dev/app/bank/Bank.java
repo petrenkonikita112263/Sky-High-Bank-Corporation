@@ -1,7 +1,8 @@
 package dev.app.bank;
 
-import java.util.HashMap;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Bank class that stores and edits all information
@@ -17,20 +18,21 @@ public class Bank {
     private int type;
 
     /**
-     * Variable that creates HashMap collection that represents
+     * Variable that creates thread safe HashMap collection that represents
      * the number in the queue of account number as key and
      * additional info about it as value.
      */
-    private HashMap<Integer, BankAccount> accounts;
+    private ConcurrentHashMap<Integer, BankAccount> accounts;
+
     /**
-     * Variable that hold next account number.
+     * Variable that is thread safe and holds next account number.
      */
-    private int nextAccountNumber;
+    private AtomicInteger nextAccountNumber;
 
     /**
      * EVC.
      */
-    public Bank(HashMap<Integer, BankAccount> accounts, int nextAccountNumber) {
+    public Bank(ConcurrentHashMap<Integer, BankAccount> accounts, AtomicInteger nextAccountNumber) {
         this.accounts = accounts;
         this.nextAccountNumber = nextAccountNumber;
     }
@@ -54,7 +56,7 @@ public class Bank {
      * @return new number of account
      */
     public int newAccount(int type, boolean isForeign) {
-        int accountNumber = nextAccountNumber++;
+        int accountNumber = nextAccountNumber.incrementAndGet();
         BankAccount bankAccount = switch (type) {
             case 1 -> new SavingAccount(accountNumber);
             case 2 -> new CheckingAccount(accountNumber);
@@ -115,7 +117,7 @@ public class Bank {
      */
     @Override
     public String toString() {
-        Set<Integer> accts = accounts.keySet();
+        Set<Integer> accts = accounts.newKeySet();
         StringBuilder result = new StringBuilder("The bank has " + accts.size()
                 + " accounts.");
         for (BankAccount bankAccount : accounts.values())
