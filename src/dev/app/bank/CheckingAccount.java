@@ -8,24 +8,18 @@ import static dev.app.bank.BankConfiguration.BANK_RATE;
  *
  * @author Nikita Petrenko
  */
-public class CheckingAccount extends AbstractBankAccount {
+public abstract class CheckingAccount extends AbstractBankAccount {
 
     /**
      * EVC.
      *
      * @param accountNumber owner account number
      */
-    public CheckingAccount(int accountNumber) {
+    protected CheckingAccount(int accountNumber) {
         super(accountNumber);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addInterest() {
-        balance += (int) (balance * BANK_RATE);
-    }
+    public abstract void addInterest();
 
     /**
      * {@inheritDoc}
@@ -35,14 +29,4 @@ public class CheckingAccount extends AbstractBankAccount {
         return balance >= 2 * amountLoan / 3;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String displayInfo() {
-        return "Checking account "
-                + accountNumber + ": balance = " + balance
-                + (isForeign ? ", and it's foreign account"
-                : ", and it's domestic account");
-    }
 }

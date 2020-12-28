@@ -39,7 +39,7 @@ public class SavingAccount extends AbstractBankAccount {
      * {@inheritDoc}
      */
     @Override
-    public String displayInfo() {
+    public String toString() {
         return "Saving account "
                 + accountNumber + ": balance = " + balance
                 + (isForeign ? ", and it's foreign account"

@@ -32,9 +32,9 @@ public class InterestChecking extends CheckingAccount {
      * {@inheritDoc}
      */
     @Override
-    public String displayInfo() {
-        return "Interest checking account " + getAccountNumber()
-                + ": balance=" + getBalance() + ", is "
-                + (isForeign() ? "foreign" : "domestic");
+    public String toString() {
+        return "Interest checking account " + accountNumber
+                + ": balance=" + balance + ", is "
+                + (isForeign ? "foreign" : "domestic");
     }
 }

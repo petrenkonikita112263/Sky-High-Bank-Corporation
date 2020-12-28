@@ -34,12 +34,12 @@ public abstract class AbstractBankAccount implements BankAccount {
      */
     public abstract boolean hasEnoughMoney(int amountLoan);
 
-    /**
-     * Prints all info about selected bank account.
-     *
-     * @return account number, it's type and balance
-     */
-    public abstract String displayInfo();
+//    /**
+//     * Prints all info about selected bank account.
+//     *
+//     * @return account number, it's type and balance
+//     */
+//    public abstract String displayInfo();
 
     /**
      * Increase account's balance.

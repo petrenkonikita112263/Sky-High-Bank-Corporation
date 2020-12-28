@@ -59,7 +59,7 @@ public class Bank {
         int accountNumber = nextAccountNumber.incrementAndGet();
         BankAccount bankAccount = switch (type) {
             case 1 -> new SavingAccount(accountNumber);
-            case 2 -> new CheckingAccount(accountNumber);
+            case 2 -> new RegularChecking(accountNumber);
             default -> new InterestChecking(accountNumber);
         };
         bankAccount.setForeign(isForeign);
@@ -125,4 +125,11 @@ public class Bank {
         return String.valueOf(result);
     }
 
+    public AtomicInteger getNextAccountNumber() {
+        return nextAccountNumber;
+    }
+
+    public void setNextAccountNumber(AtomicInteger nextAccountNumber) {
+        this.nextAccountNumber = nextAccountNumber;
+    }
 }
