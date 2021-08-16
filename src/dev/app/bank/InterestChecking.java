@@ -1,7 +1,5 @@
 package dev.app.bank;
 
-import static dev.app.bank.BankConfiguration.BANK_RATE;
-
 /**
  * A subclass of CheckingAccount class and perform deposit
  * with new balance that was increased by bank's rate.
@@ -24,13 +22,16 @@ public class InterestChecking extends CheckingAccount {
      */
     @Override
     public void addInterest() {
-        int newBalance = (int) (getBalance() * BANK_RATE);
+        int newBalance = (int) (getBalance() * interestRate());
         deposit(newBalance);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /**{@inheritDoc}*/
+    @Override
+    protected double interestRate() {
+        return 0.02;
+    }
+
     @Override
     public String toString() {
         return "Interest checking account " + accountNumber
