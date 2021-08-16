@@ -39,6 +39,19 @@ public class SavingAccount extends AbstractBankAccount {
      * {@inheritDoc}
      */
     @Override
+    protected double collateralRatio() {
+        return 1.0 / 2.0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected double interestRate() {
+        return 0.01;
+    }
+
+    @Override
     public String toString() {
         return "Saving account "
                 + accountNumber + ": balance = " + balance
