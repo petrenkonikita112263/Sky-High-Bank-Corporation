@@ -32,19 +32,31 @@ public abstract class AbstractBankAccount implements BankAccount {
      * @param amountLoan amount of money to loan
      * @return true - operation can be run, otherwise - it could be
      */
-    public abstract boolean hasEnoughMoney(int amountLoan);
+    public boolean hasEnoughMoney(int amountLoan) {
+        double ratio = collateralRatio();
+        return balance >= amountLoan * ratio;
+    }
 
-//    /**
-//     * Prints all info about selected bank account.
-//     *
-//     * @return account number, it's type and balance
-//     */
-//    public abstract String displayInfo();
+    /**
+     * Helper method for hasEnoughMoney.
+     *
+     * @return value of ratio depending on account type
+     */
+    protected abstract double collateralRatio();
 
     /**
      * Increase account's balance.
      */
-    public abstract void addInterest();
+    public void addInterest() {
+        balance += (int) (balance * interestRate());
+    }
+
+    /**
+     * Helper method for addInterest method.
+     *
+     * @return value of rate depending on account type
+     */
+    protected abstract double interestRate();
 
     /**
      * {@inheritDoc}
