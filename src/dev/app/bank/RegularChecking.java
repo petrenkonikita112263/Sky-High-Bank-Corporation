@@ -18,6 +18,11 @@ public class RegularChecking extends CheckingAccount {
      * {@inheritDoc}
      */
     @Override
+    protected double interestRate() {
+        return 0.0;
+    }
+    
+    @Override
     public String toString() {
         return "Regular checking account " + accountNumber
                 + ": balance=" + balance + ", is "
