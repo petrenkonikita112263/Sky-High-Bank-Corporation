@@ -2,7 +2,6 @@ package dev.app.bank;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Bank class that stores and edits all information
@@ -27,12 +26,12 @@ public class Bank {
     /**
      * Variable that is thread safe and holds next account number.
      */
-    private AtomicInteger nextAccountNumber;
+    private int nextAccountNumber;
 
     /**
      * EVC.
      */
-    public Bank(ConcurrentHashMap<Integer, BankAccount> accounts, AtomicInteger nextAccountNumber) {
+    public Bank(ConcurrentHashMap<Integer, BankAccount> accounts, int nextAccountNumber) {
         this.accounts = accounts;
         this.nextAccountNumber = nextAccountNumber;
     }
@@ -56,7 +55,7 @@ public class Bank {
      * @return new number of account
      */
     public int newAccount(int type, boolean isForeign) {
-        int accountNumber = nextAccountNumber.incrementAndGet();
+        int accountNumber = nextAccountNumber++;
         BankAccount bankAccount = switch (type) {
             case 1 -> new SavingAccount(accountNumber);
             case 2 -> new RegularChecking(accountNumber);
@@ -117,7 +116,7 @@ public class Bank {
      */
     @Override
     public String toString() {
-        Set<Integer> accts = accounts.newKeySet();
+        Set<Integer> accts = accounts.keySet();
         StringBuilder result = new StringBuilder("The bank has " + accts.size()
                 + " accounts.");
         for (BankAccount bankAccount : accounts.values())
@@ -125,11 +124,11 @@ public class Bank {
         return String.valueOf(result);
     }
 
-    public AtomicInteger getNextAccountNumber() {
+    public int getNextAccountNumber() {
         return nextAccountNumber;
     }
 
-    public void setNextAccountNumber(AtomicInteger nextAccountNumber) {
+    public void setNextAccountNumber(int nextAccountNumber) {
         this.nextAccountNumber = nextAccountNumber;
     }
 }
