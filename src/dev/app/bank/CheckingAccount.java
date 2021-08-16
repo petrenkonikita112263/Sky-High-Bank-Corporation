@@ -21,6 +21,16 @@ public abstract class CheckingAccount extends AbstractBankAccount {
 
     public abstract void addInterest();
 
+    protected abstract double interestRate();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected double collateralRatio() {
+        return 2.0 / 3.0;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -28,5 +38,4 @@ public abstract class CheckingAccount extends AbstractBankAccount {
     public boolean hasEnoughMoney(int amountLoan) {
         return balance >= 2 * amountLoan / 3;
     }
-
 }
