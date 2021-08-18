@@ -33,7 +33,8 @@ public class BankClient {
     private Bank bank;
 
     /**
-     * Array of console commands that bank clients can perform*/
+     * Array of console commands that bank clients can perform
+     */
     private InputCommand[] consoleCommands = {
             new QuitCommand(),
             new CreateCommand(),
@@ -57,15 +58,32 @@ public class BankClient {
      * Print the menu into the console and wait for user's input.
      */
     public void run() {
-        scanner = new Scanner(System.in);
+        String userMessage = displayMessage();
         while (!done) {
-            System.out.println("Enter command:\n\t0 - quit\n\t1 - new"
-                    + "\n\t2 - select\n\t3 - deposit\n\t4 - loan"
-                    + "\n\t5 - show\n\t6 - interest\n\t7 - setForeign");
+            System.out.println(userMessage);
             int cmd = scanner.nextInt();
             processCommand(cmd);
         }
         scanner.close();
+    }
+
+    /**
+     * Additional message to display options for user input into console from
+     * array field.
+     */
+    private String displayMessage() {
+        int lastElement = consoleCommands.length - 1;
+        StringBuilder finalMessage = new StringBuilder("Enter Account Type (");
+        for (int i = 0; i < consoleCommands.length-1; i++) {
+            finalMessage.append(i)
+                    .append("=")
+                    .append(consoleCommands[i])
+                    .append(", ");
+        }
+        finalMessage.append(lastElement)
+                .append("=").append(consoleCommands[lastElement])
+                .append("): ");
+        return finalMessage.toString();
     }
 
     /**
@@ -74,6 +92,7 @@ public class BankClient {
      * @param cmd number of command
      */
     private void processCommand(int cmd) {
+        InputCommand inputCommands = consoleCommands[cmd];
         switch (cmd) {
             case 0 -> quit();
             case 1 -> newAccount();
