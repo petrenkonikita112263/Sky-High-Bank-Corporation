@@ -13,9 +13,9 @@ public abstract class AbstractBankAccount implements BankAccount {
     protected int balance;
 
     /**
-     * Boolean value - true if foreign, otherwise it's domestic account.
+     * Strategy variable owner.
      */
-    protected boolean isForeign;
+    protected OwnerStrategy owner = new Domestic();
 
     /**
      * EVC
@@ -79,7 +79,11 @@ public abstract class AbstractBankAccount implements BankAccount {
      */
     @Override
     public boolean isForeign() {
-        return isForeign;
+        return owner.isForeign();
+    }
+
+    public void setOwner(OwnerStrategy owner) {
+        this.owner = owner;
     }
 
     /**
@@ -87,7 +91,7 @@ public abstract class AbstractBankAccount implements BankAccount {
      */
     @Override
     public void setForeign(boolean foreign) {
-        isForeign = foreign;
+        owner = foreign ? new Foreign() : new Domestic();
     }
 
     /**
