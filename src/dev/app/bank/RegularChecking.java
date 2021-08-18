@@ -26,6 +26,6 @@ public class RegularChecking extends CheckingAccount {
     public String toString() {
         return "Regular checking account " + accountNumber
                 + ": balance=" + balance + ", is "
-                + (isForeign ? "foreign" : "domestic");
+                + (owner.isForeign() ? "foreign" : "domestic");
     }
 }

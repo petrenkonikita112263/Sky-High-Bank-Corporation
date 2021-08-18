@@ -55,7 +55,7 @@ public class SavingAccount extends AbstractBankAccount {
     public String toString() {
         return "Saving account "
                 + accountNumber + ": balance = " + balance
-                + (isForeign ? ", and it's foreign account"
+                + (owner.isForeign() ? ", and it's foreign account"
                 : ", and it's domestic account");
     }
 }

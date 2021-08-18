@@ -36,6 +36,6 @@ public class InterestChecking extends CheckingAccount {
     public String toString() {
         return "Interest checking account " + accountNumber
                 + ": balance=" + balance + ", is "
-                + (isForeign ? "foreign" : "domestic");
+                + (owner.isForeign() ? "foreign" : "domestic");
     }
 }
