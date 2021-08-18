@@ -16,6 +16,6 @@ public class ForeignStatusCommand implements InputCommand {
 
     @Override
     public String toString() {
-        return "Foreign status";
+        return "Set foreign status";
     }
 }
