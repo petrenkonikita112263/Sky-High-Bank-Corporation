@@ -94,6 +94,10 @@ public abstract class AbstractBankAccount implements BankAccount {
         owner = foreign ? new Foreign() : new Domestic();
     }
 
+    public int makeFee() {
+        return owner.fee();
+    }
+
     /**
      * {@inheritDoc}
      */
