@@ -1,5 +1,7 @@
 package dev.app.bank;
 
+import dev.app.bank.commands.*;
+
 import java.util.Scanner;
 
 /**
@@ -29,6 +31,19 @@ public class BankClient {
      * Variable that holds link to the bank object.
      */
     private Bank bank;
+
+    /**
+     * Array of console commands that bank clients can perform*/
+    private InputCommand[] consoleCommands = {
+            new QuitCommand(),
+            new CreateCommand(),
+            new SelectCommand(),
+            new DepositCommand(),
+            new LoanCommand(),
+            new ShowCommand(),
+            new InterestCommand(),
+            new ForeignStatusCommand()
+    };
 
     /**
      * EVC.
