@@ -17,7 +17,9 @@ public class AbstractBankAccount implements BankAccount {
      */
     private OwnerStrategy owner = new Domestic();
 
-    /**Account type field.*/
+    /**
+     * Account type field.
+     */
     private AccountTypeStrategy accountTypeStrategy;
 
     /**
@@ -61,6 +63,9 @@ public class AbstractBankAccount implements BankAccount {
         return accountTypeStrategy.accountType();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int makeFee() {
         return owner.fee();
     }
@@ -136,5 +141,13 @@ public class AbstractBankAccount implements BankAccount {
         return balance1 == balance2
                 ? getAccountNumber() - o.getAccountNumber()
                 : balance1 - balance2;
+    }
+
+    @Override
+    public String toString() {
+        String accountType = getAccountType();
+        return accountType + " account " + accountNumber + ": balance=" + balance
+                + ", is " + owner.toString()
+                + ", fee=" + makeFee();
     }
 }
