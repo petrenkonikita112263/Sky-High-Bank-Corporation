@@ -94,13 +94,12 @@ public class SavedBankInfo {
         int type = bb.getInt(4);
         int balance = bb.getInt(8);
         int isforeign = bb.getInt(12);
-        BankAccount ba;
-        if (type == 1)
-            ba = new SavingAccount(num);
-        else if (type == 2)
-            ba = new RegularChecking(num);
-        else
-            ba = new InterestChecking(num);
+        AccountTypeStrategy accountTypeStrategy = switch (type) {
+            case 1 -> new SavingAccount();
+            case 2 -> new RegularChecking();
+            default -> new InterestChecking();
+        };
+        BankAccount ba = new AbstractBankAccount(num, accountTypeStrategy);
         ba.deposit(balance);
         ba.setForeign(isforeign == 1);
         return ba;
