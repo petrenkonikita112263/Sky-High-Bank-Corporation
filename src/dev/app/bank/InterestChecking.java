@@ -6,36 +6,29 @@ package dev.app.bank;
  *
  * @author Nikita Petrenko
  */
-public class InterestChecking extends CheckingAccount {
+public class InterestChecking implements AccountTypeStrategy {
 
     /**
-     * EVC
-     *
-     * @param accountNumber owner account number
+     * {@inheritDoc}
      */
-    public InterestChecking(int accountNumber) {
-        super(accountNumber);
+    @Override
+    public double collateralRatio() {
+        return 2.0 / 3.0;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addInterest() {
-        int newBalance = (int) (getBalance() * interestRate());
-        deposit(newBalance);
-    }
-
-    /**{@inheritDoc}*/
-    @Override
-    protected double interestRate() {
+    public double interestRate() {
         return 0.02;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String toString() {
-        return "Interest checking account " + accountNumber
-                + ": balance=" + balance + ", is "
-                + (owner.isForeign() ? "foreign" : "domestic");
+    public String accountType() {
+        return "Interest checking account";
     }
 }
