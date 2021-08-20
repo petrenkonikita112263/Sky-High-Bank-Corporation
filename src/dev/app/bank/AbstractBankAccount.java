@@ -1,21 +1,21 @@
 package dev.app.bank;
 
-public abstract class AbstractBankAccount implements BankAccount {
+public class AbstractBankAccount implements BankAccount {
 
     /**
      * Variable that hold owner account number.
      */
-    protected int accountNumber;
+    private int accountNumber;
 
     /**
      * Balance of owner's account.
      */
-    protected int balance;
+    private int balance;
 
     /**
      * Strategy variable owner.
      */
-    protected OwnerStrategy owner = new Domestic();
+    private OwnerStrategy owner = new Domestic();
 
     /**Account type field.*/
     private AccountTypeStrategy accountTypeStrategy;
