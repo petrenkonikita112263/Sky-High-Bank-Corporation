@@ -17,13 +17,18 @@ public abstract class AbstractBankAccount implements BankAccount {
      */
     protected OwnerStrategy owner = new Domestic();
 
+    /**Account type field.*/
+    private AccountTypeStrategy accountTypeStrategy;
+
     /**
      * EVC
      *
      * @param accountNumber owner account number
      */
-    protected AbstractBankAccount(int accountNumber) {
+    protected AbstractBankAccount(int accountNumber,
+                                  AccountTypeStrategy accountTypeStrategy) {
         this.accountNumber = accountNumber;
+        this.accountTypeStrategy = accountTypeStrategy;
     }
 
     /**
@@ -38,11 +43,27 @@ public abstract class AbstractBankAccount implements BankAccount {
     }
 
     /**
-     * Helper method for hasEnoughMoney.
+     * Helper method that return the collateralRatio value
+     * for specific account type.
      *
-     * @return value of ratio depending on account type
+     * @return collateral ratio
      */
-    protected abstract double collateralRatio();
+    private double collateralRatio() {
+        return accountTypeStrategy.collateralRatio();
+    }
+
+    /**
+     * Method that returns the name of account.
+     *
+     * @return name of account
+     */
+    public String getAccountType() {
+        return accountTypeStrategy.accountType();
+    }
+
+    public int makeFee() {
+        return owner.fee();
+    }
 
     /**
      * Increase account's balance.
@@ -52,11 +73,14 @@ public abstract class AbstractBankAccount implements BankAccount {
     }
 
     /**
-     * Helper method for addInterest method.
+     * Helper method that return the interestRate value
+     * for specific account type.
      *
-     * @return value of rate depending on account type
+     * @return interest rate
      */
-    protected abstract double interestRate();
+    private double interestRate() {
+        return accountTypeStrategy.interestRate();
+    }
 
     /**
      * {@inheritDoc}
@@ -92,10 +116,6 @@ public abstract class AbstractBankAccount implements BankAccount {
     @Override
     public void setForeign(boolean foreign) {
         owner = foreign ? new Foreign() : new Domestic();
-    }
-
-    public int makeFee() {
-        return owner.fee();
     }
 
     /**
