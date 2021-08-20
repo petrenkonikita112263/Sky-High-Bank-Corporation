@@ -31,7 +31,8 @@ public interface BankAccount extends Comparable<BankAccount> {
      * @return created bank account object
      */
     static BankAccount createSavingsWithDeposit(int acctnum, int cash) {
-        BankAccount bankAccount = new SavingAccount(acctnum);
+        AccountTypeStrategy accountTypeStrategy = new SavingAccount();
+        BankAccount bankAccount = new AbstractBankAccount(acctnum, accountTypeStrategy);
         bankAccount.deposit(cash);
         return bankAccount;
     }
@@ -78,6 +79,13 @@ public interface BankAccount extends Comparable<BankAccount> {
      * @return true - operation can be run, otherwise - it could be
      */
     boolean hasEnoughMoney(int amountLoan);
+
+    /**
+     * Retuns the fee.
+     *
+     * @return fee value
+     */
+    int makeFee();
 
     /**
      * {@inheritDoc}
