@@ -1,31 +1,28 @@
 package dev.app.bank;
 
-public class RegularChecking extends CheckingAccount {
+public class RegularChecking implements AccountTypeStrategy {
 
-    public RegularChecking(int accountNumber) {
-        super(accountNumber);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public double collateralRatio() {
+        return 2.0 / 3.0;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addInterest() {
-
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected double interestRate() {
+    public double interestRate() {
         return 0.0;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String toString() {
-        return "Regular checking account " + accountNumber
-                + ": balance=" + balance + ", is "
-                + (owner.isForeign() ? "foreign" : "domestic");
+    public String accountType() {
+        return "Regular checking account";
     }
 }
