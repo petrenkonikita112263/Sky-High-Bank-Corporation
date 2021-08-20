@@ -56,11 +56,13 @@ public class Bank {
      */
     public int newAccount(int type, boolean isForeign) {
         int accountNumber = nextAccountNumber++;
-        BankAccount bankAccount = switch (type) {
-            case 1 -> new SavingAccount(accountNumber);
-            case 2 -> new RegularChecking(accountNumber);
-            default -> new InterestChecking(accountNumber);
+        AccountTypeStrategy accountTypeStrategy= switch (type) {
+            case 1 -> new SavingAccount();
+            case 2 -> new RegularChecking();
+            default -> new InterestChecking();
         };
+        BankAccount bankAccount = new AbstractBankAccount(accountNumber,
+                accountTypeStrategy);
         bankAccount.setForeign(isForeign);
         accounts.put(accountNumber, bankAccount);
         return accountNumber;
