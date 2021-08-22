@@ -1,6 +1,9 @@
 package dev.app.bank;
 
 public enum Domestic implements OwnerStrategy {
+
+    STATE;
+
     /**
      * {@inheritDoc}
      */
