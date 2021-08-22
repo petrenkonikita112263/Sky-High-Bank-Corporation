@@ -1,6 +1,6 @@
 package dev.app.bank;
 
-public class Domestic implements OwnerStrategy {
+public enum Domestic implements OwnerStrategy {
     /**
      * {@inheritDoc}
      */
