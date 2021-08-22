@@ -35,16 +35,7 @@ public class BankClient {
     /**
      * Array of console commands that bank clients can perform
      */
-    private InputCommand[] consoleCommands = {
-            new QuitCommand(),
-            new CreateCommand(),
-            new SelectCommand(),
-            new DepositCommand(),
-            new LoanCommand(),
-            new ShowCommand(),
-            new InterestCommand(),
-            new ForeignStatusCommand()
-    };
+    private InputCommand[] consoleCommands = CommandsList.values();
 
     /**
      * EVC.
