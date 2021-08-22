@@ -15,7 +15,7 @@ public class AbstractBankAccount implements BankAccount {
     /**
      * Strategy variable owner.
      */
-    private OwnerStrategy owner = Domestic.STATE;
+    private OwnerStrategy owner = Owner.DOMESTIC;
 
     /**
      * Account type field.
@@ -120,7 +120,7 @@ public class AbstractBankAccount implements BankAccount {
      */
     @Override
     public void setForeign(boolean foreign) {
-        owner = foreign ? Foreign.STATE : Domestic.STATE;
+        owner = foreign ? Owner.FOREIGN : Owner.DOMESTIC;
     }
 
     /**
