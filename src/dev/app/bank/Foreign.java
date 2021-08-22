@@ -1,6 +1,6 @@
 package dev.app.bank;
 
-public class Foreign implements OwnerStrategy {
+public enum Foreign implements OwnerStrategy {
 
     /**
      * {@inheritDoc}
