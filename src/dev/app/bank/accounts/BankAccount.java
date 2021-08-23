@@ -1,4 +1,4 @@
-package dev.app.bank;
+package dev.app.bank.accounts;
 
 /**
  * Interface class, which object can be transformed into SavingAccount

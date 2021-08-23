@@ -1,4 +1,4 @@
-package dev.app.bank;
+package dev.app.bank.accounts;
 
 /**
  * Saving account, which balance can be increased by add interest method.

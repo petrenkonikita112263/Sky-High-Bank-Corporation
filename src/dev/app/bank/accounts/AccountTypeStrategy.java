@@ -1,4 +1,4 @@
-package dev.app.bank;
+package dev.app.bank.accounts;
 
 /**
  * Strategy interface class that declares some methods.
