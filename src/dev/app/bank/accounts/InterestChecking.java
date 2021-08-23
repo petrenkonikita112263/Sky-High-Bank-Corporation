@@ -1,4 +1,4 @@
-package dev.app.bank;
+package dev.app.bank.accounts;
 
 /**
  * A subclass of CheckingAccount class and perform deposit

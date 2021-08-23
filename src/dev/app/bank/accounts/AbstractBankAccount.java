@@ -1,4 +1,7 @@
-package dev.app.bank;
+package dev.app.bank.accounts;
+
+import dev.app.bank.Owner;
+import dev.app.bank.OwnerStrategy;
 
 public class AbstractBankAccount implements BankAccount {
 
@@ -27,8 +30,8 @@ public class AbstractBankAccount implements BankAccount {
      *
      * @param accountNumber owner account number
      */
-    protected AbstractBankAccount(int accountNumber,
-                                  AccountTypeStrategy accountTypeStrategy) {
+    public AbstractBankAccount(int accountNumber,
+                               AccountTypeStrategy accountTypeStrategy) {
         this.accountNumber = accountNumber;
         this.accountTypeStrategy = accountTypeStrategy;
     }
