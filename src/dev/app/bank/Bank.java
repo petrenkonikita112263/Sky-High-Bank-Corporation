@@ -1,5 +1,7 @@
 package dev.app.bank;
 
+import dev.app.bank.accounts.*;
+
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 

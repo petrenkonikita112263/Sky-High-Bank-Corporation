@@ -1,5 +1,7 @@
 package dev.app.bank;
 
+import dev.app.bank.accounts.*;
+
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
@@ -11,7 +13,7 @@ public class SavedBankInfo {
     private final static Logger LOG = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
     private Path filename;
-    private ConcurrentHashMap<Integer,BankAccount> accounts
+    private ConcurrentHashMap<Integer, BankAccount> accounts
             = new ConcurrentHashMap<>();
     private int nextAccount;
     private ByteBuffer bb = ByteBuffer.allocate(16);

@@ -1,4 +1,4 @@
-package dev.app.bank;
+package dev.app.bank.types;
 
 public enum Owner implements OwnerStrategy{
     DOMESTIC(false, 0, "domestic"),

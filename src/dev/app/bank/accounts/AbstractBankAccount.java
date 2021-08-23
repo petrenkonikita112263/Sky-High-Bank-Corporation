@@ -1,7 +1,7 @@
 package dev.app.bank.accounts;
 
-import dev.app.bank.Owner;
-import dev.app.bank.OwnerStrategy;
+import dev.app.bank.types.Owner;
+import dev.app.bank.types.OwnerStrategy;
 
 public class AbstractBankAccount implements BankAccount {
 
