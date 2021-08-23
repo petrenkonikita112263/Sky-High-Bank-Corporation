@@ -1,5 +1,6 @@
-package dev.app.bank;
+package dev.app.bank.utils;
 
+import dev.app.bank.Bank;
 import dev.app.bank.commands.*;
 
 import java.util.Scanner;

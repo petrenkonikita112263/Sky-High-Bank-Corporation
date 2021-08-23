@@ -1,6 +1,8 @@
 package dev.app.bank;
 
 import dev.app.bank.accounts.BankAccount;
+import dev.app.bank.utils.BankClient;
+import dev.app.bank.utils.SavedBankInfo;
 
 import java.nio.file.Path;
 import java.util.Scanner;
